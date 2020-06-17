@@ -64,7 +64,48 @@ How to choose a good regularization parameter? - __Hyperparamter tuning__
 ### Design Example: Spam Classifier
 
 
+#### Prioritizing What to Work On
+
+- Collect lots of data
+- Develop rich and sophisticated feature
+- Develop algorithms to process input in different ways
+- start with simple algorithm, plot the learning curve, decide whether we need more complex features/algorithms or not.
+
+Error analysis: manually examine the examples in cross validation to spot where algorithm made mistakes. 
+
+
 ### Handling Skewed Data
+This is when the class distribution in the training set is very disproportional: i.e. number of positive samples much less than number of negative samples. No need for a classifier.
+- Instead of using accuracy: use precision and recall.
+
+Confusion matrix:
+
+|                 | 1 (Actual)          | 0 (Actual)          |
+|-----------------|---------------------|---------------------|
+| __1 (Predict)__ | TP (True Positive)  | FP (False Positive) |
+| __0 (Predict)__ | FN (False Negative) | TN (True Negative)  |
+
+- Precision: of all of patients where we predicted 1, what fraction has cancer.
+- Recall: Of all patients that have cancer, what fraction did we correctly predict.
+- F-1 score: harmonic mean of the above, gives a more balanced metrics.
+
+$$
+\begin{aligned}
+\text{Precision} = \frac{TP}{TP + FP} \\
+\text{Recall} = \frac{TP}{TP + FN} \\
+\text{F-1 Score} = 2\frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{aligned}
+$$
+
+__Precision-Recall curve__ is a good visualization for the behavior of precisoin vs. recall, as most of the times we need to make trade offs between these two.
+
+When choosing a decision threshold for classificatio; it is good practice to __choose threshold that maximizes the F-1 score on validation set__.
 
 
 ### Using Large Dataset
+
+When is it true that the more data the better? 
+- The feature of the data must be informative; otherwise mere accumulation of data doesn't help at all.
+- Given the information available, can a human expert confidently solve the problem? 
+
+Large training set fits perfectly with deep neural networks, which could have millions of paramters to tune (provided that features are informative).
