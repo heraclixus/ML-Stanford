@@ -100,16 +100,19 @@ where $z$ is the result of the linear combination, i.e. $a^{[r]} = z^{[r]} = W^{
 The algorithm:
 
 - Compute and store the values of $a^{[k]}$ and $z^{[k]}$ with forward propagation, for $k = 1, ..., r-1$
-- Compute $\delta^{[r]} = \frac{\partial J}{\partial z^{[r]}}$. i.e. compute the loss at output
+- Compute $\delta^{[r]} = \frac{\partial J}{\partial z^{[r]}} = (z^{[r]} - o)$. i.e. compute the loss at output ($o$ represents the output)
 - For $k = r - 1$ to $1$ do:
   - Compute
 
 $$
-\delta^{[k]} = \frac{\partial J}{\partial z^{[k]}} = \Big( {W^{[k+1]}}^T \delta^{[k+1]}\Big) f'(z^{[k]})
+\delta^{[k]} = \frac{\partial J}{\partial z^{[k]}} = \Big( {W^{[k+1]}}^T \delta^{[k+1]}\Big) \odot f'(z^{[k]})
 $$
 
 - Compute
 
 $$
 \begin{aligned}
+\frac{\partial J}{\partial W^{[k+1]}} = \delta^{[k+1]} {a^{[k]}}^T \\
+\frac{\partial J}{\partial b^{[k+1]}} = \delta^{[k+1]}
+\end{aligned}
 $$
